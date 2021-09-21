@@ -1,0 +1,145 @@
+body { padding-top: 50px; }
+
+/* CAROUSEL START */
+
+#carousel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+#carousel .carousel-inner {
+    display: flex;
+    border-radius: .3rem!important;
+}
+
+#carousel .carousel-caption {
+    left:0;
+	right:0;
+	bottom:0;
+	text-align:left;
+	padding:10px;
+	background:rgba(0,0,0,0.6);
+	text-shadow:none;
+}
+
+.list-group {
+	top:0;
+	right:0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.list-group-item {
+    border-color: rgba(255, 255, 255, 0);
+	background-color: rgba(255, 255, 255, 0);
+	border-radius:0px;
+	cursor:pointer;
+    font-weight: 600;
+}
+
+.list-group-item.active {
+    color: #000;
+    font-weight: bold;
+    border-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.carousel_tabs {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    border-bottom: 2px solid;
+    border-color: var(--primary);
+}
+
+.carousel_tabs>button {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    line-height: 18px;
+    background-color: lightgray;
+    color: black;
+    border-color: lightgray;
+}
+
+.carousel_tabs>button.active {
+    color: #000;
+    font-weight: 600;
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+@media (min-width: 992px) { 
+	#newsCarousel .carousel-controls, #popularNews .carousel-controls {display:none;} 	
+}
+@media (max-width: 991px) { 
+	.carousel-caption p,
+	#newsCarousel .list-group, #popularNews .list-group {display:none;} 
+}
+
+.carousel-image {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+}
+
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:active:hover {
+    color: #fff;
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.btn-check:focus+.btn-primary,
+.btn-primary:focus {
+    color: #fff;
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+    box-shadow: none;
+}
+
+.btn-check:active+.btn-primary:focus,
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    color: #fff;
+    background-color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: none;
+}
+
+
+/* CAROUSEL END */
+
+body {
+    background-color: var(--background);
+}
+
+:root {
+    --background: #EEEEEE;
+    --primary: #F9C70F;
+    --secondary: #5C4906;
+    --terciary: #424242;
+    
+    --black: #121212;
+
+    --card_red: #8F1202;
+    --card_green: #307010;
+    --card_purple: #5E0F6C;
+
+    --logo_width: 120px;
+}
