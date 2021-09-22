@@ -23,6 +23,10 @@ body { padding-top: 50px; }
 	text-shadow:none;
 }
 
+.carousel-image {
+    width: inherit;
+}
+
 .list-group {
 	top:0;
 	right:0;
