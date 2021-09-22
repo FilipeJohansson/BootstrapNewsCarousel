@@ -23,268 +23,6 @@
 </head>
 
 <body>
-    <script>
-        const TRENDING_ID = 0;
-        const POPULAR_NEWS_ID = 1;
-
-        var line = {
-            actualLine: 0,
-            lineChanged: function(value) {},
-            set line(value) {
-                if(this.actualLine != value) {
-                    this.actualLine = value;
-                    this.lineChanged();
-                }
-            },
-            get line() {
-                return this.actualLine;
-            },
-            registerListener: function(listener) {
-                this.lineChanged = listener;
-            }
-        }
-
-        $.ajax({
-            url: "getTrendings.php",
-            type: "POST",
-            dataType: "html"
-        }).done(function (response) {
-            var data = JSON.parse(response);
-            console.log(data);
-            var carouselInner = '';
-            var carouselList = '';
-            data.forEach((item, index) => {
-                if (index == 0) {
-                    carouselInner +=
-                        '<div class="carousel-item active">' +
-                        '<img class="carousel-image" src="' + item.image + '">' +
-                        '<div class ="carousel-caption">' +
-                        '<h4><a href="#">' + item.title + '</a></h4>' +
-                        '<p>' + item.desc + '</p>' +
-                        '</div>' +
-                        '</div>';
-
-                    carouselList +=
-                        '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item active">' +
-                        '<span>' + item.title + '</span>' +
-                        '</li>';
-                } else {
-                    carouselInner +=
-                        '<div class="carousel-item">' +
-                        '<img class="carousel-image" src="' + item.image + '">' +
-                        '<div class ="carousel-caption">' +
-                        '<h4><a href="#">' + item.title + '</a></h4>' +
-                        '<p>' + item.desc + '</p>' +
-                        '</div>' +
-                        '</div>';
-
-                    carouselList +=
-                        '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item">' +
-                        '<span>' + item.title + '</span>' +
-                        '</li>';
-                }
-            });
-
-            document.getElementById("carousel-inner").innerHTML = carouselInner;
-            document.getElementById("carousel-list").innerHTML = carouselList;
-
-            var actual = TRENDING_ID;
-        }).fail(function (jqXHR, textStatus) {
-            console.log("Request failed: " + textStatus);
-
-        }).always(function () {
-            console.log("Completed");
-        });
-
-        function showTrendings() {
-            line.line = 0;
-            cleanCarousel();
-
-            $.ajax({
-                url: "getTrendings.php",
-                type: "POST",
-                dataType: "html"
-            }).done(function (response) {
-                var data = JSON.parse(response);
-                console.log(data);
-                var carouselInner = '';
-                var carouselList = '';
-                data.forEach((item, index) => {
-                    if (index == 0) {
-                        carouselInner +=
-                            '<div class="carousel-item active">' +
-                            '<img class="carousel-image" src="' + item.image + '">' +
-                            '<div class ="carousel-caption">' +
-                            '<h4><a href="#">' + item.title + '</a></h4>' +
-                            '<p>' + item.desc + '</p>' +
-                            '</div>' +
-                            '</div>';
-
-                        carouselList +=
-                            '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item active">' +
-                            '<span>' + item.title + '</span>' +
-                            '</li>';
-                    } else {
-                        carouselInner +=
-                            '<div class="carousel-item">' +
-                            '<img class="carousel-image" src="' + item.image + '">' +
-                            '<div class ="carousel-caption">' +
-                            '<h4><a href="#">' + item.title + '</a></h4>' +
-                            '<p>' + item.desc + '</p>' +
-                            '</div>' +
-                            '</div>';
-
-                        carouselList +=
-                            '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item">' +
-                            '<span>' + item.title + '</span>' +
-                            '</li>';
-                    }
-                });
-
-                document.getElementById("carousel-inner").innerHTML = carouselInner;
-                document.getElementById("carousel-list").innerHTML = carouselList;
-            }).fail(function (jqXHR, textStatus) {
-                console.log("Request failed: " + textStatus);
-
-            }).always(function () {
-                console.log("Completed");
-            });
-        }
-
-        function change(id) {
-            cleanCarousel();
-
-            var url = '';
-
-            if (id == TRENDING_ID) {
-                url = "getTrendings.php";
-                actual = TRENDING_ID;
-            } else if (id == POPULAR_NEWS_ID) {
-                url = "getPopularNews.php";
-                actual = POPULAR_NEWS_ID;
-            }
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                dataType: "html"
-            }).done(function (response) {
-                var data = JSON.parse(response);
-                console.log(data);
-                var carouselInner = '';
-                var carouselList = '';
-                data.forEach((item, index) => {
-                    if (index == 0) {
-                        carouselInner +=
-                            '<div class="carousel-item active">' +
-                            '<img class="carousel-image" src="' + item.image + '">' +
-                            '<div class ="carousel-caption">' +
-                            '<h4><a href="#">' + item.title + '</a></h4>' +
-                            '<p>' + item.desc + '</p>' +
-                            '</div>' +
-                            '</div>';
-
-                        carouselList +=
-                            '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item active">' +
-                            '<span>' + item.title + '</span>' +
-                            '</li>';
-                    } else {
-                        carouselInner +=
-                            '<div class="carousel-item">' +
-                            '<img class="carousel-image" src="' + item.image + '">' +
-                            '<div class ="carousel-caption">' +
-                            '<h4><a href="#">' + item.title + '</a></h4>' +
-                            '<p>' + item.desc + '</p>' +
-                            '</div>' +
-                            '</div>';
-
-                        carouselList +=
-                            '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item">' +
-                            '<span>' + item.title + '</span>' +
-                            '</li>';
-                    }
-                });
-
-                document.getElementById("carousel-inner").innerHTML = carouselInner;
-                document.getElementById("carousel-list").innerHTML = carouselList;
-            }).fail(function (jqXHR, textStatus) {
-                console.log("Request failed: " + textStatus);
-
-            }).always(function () {
-                console.log("Completed");
-            });
-        }
-
-        function showPopular() {
-            cleanCarousel();
-
-            $.ajax({
-                url: "getPopularNews.php",
-                type: "POST",
-                dataType: "html"
-            }).done(function (response) {
-                var data = JSON.parse(response);
-                console.log(data);
-                var carouselInner = '';
-                var carouselList = '';
-                data.forEach((item, index) => {
-                    if (index == 0) {
-                        carouselInner +=
-                            '<div class="carousel-item active">' +
-                            '<img class="carousel-image" src="' + item.image + '">' +
-                            '<div class ="carousel-caption">' +
-                            '<h4><a href="#">' + item.title + '</a></h4>' +
-                            '<p>' + item.desc + '</p>' +
-                            '</div>' +
-                            '</div>';
-
-                        carouselList +=
-                            '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item active">' +
-                            '<span>' + item.title + '</span>' +
-                            '</li>';
-                    } else {
-                        carouselInner +=
-                            '<div class="carousel-item">' +
-                            '<img class="carousel-image" src="' + item.image + '">' +
-                            '<div class ="carousel-caption">' +
-                            '<h4><a href="#">' + item.title + '</a></h4>' +
-                            '<p>' + item.desc + '</p>' +
-                            '</div>' +
-                            '</div>';
-
-                        carouselList +=
-                            '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item">' +
-                            '<span>' + item.title + '</span>' +
-                            '</li>';
-                    }
-                });
-
-                document.getElementById("carousel-inner").innerHTML = carouselInner;
-                document.getElementById("carousel-list").innerHTML = carouselList;
-            }).fail(function (jqXHR, textStatus) {
-                console.log("Request failed: " + textStatus);
-
-            }).always(function () {
-                console.log("Completed");
-            });
-        }
-
-        function cleanCarousel() {
-            var element = document.getElementById("carousel-inner");
-            while (element.firstChild)
-                element.removeChild(element.lastChild);
-
-            element = document.getElementById("carousel-list");
-            while (element.firstChild)
-                element.removeChild(element.lastChild);
-        }
-    
-        line.registerListener(function(value) {
-            console.log("RegistrerListener");          
-        });
-
-    </script>
-
     <main class="container">
         <div class="row px-5">
             <!-- Main column -->
@@ -301,13 +39,13 @@
 
                             <div class="col-4 px-0 mt-2">
                                 <div id="carousel_tabs" class="d-flex carousel_tabs mx-2 align-items-stretch">
-                                    <button id="trendings" class="btn btn-primary active" onclick="showTrendings();">
+                                    <button id="trendings" class="btn btn-primary active" onclick="fill(0);">
                                         TRENDING
                                     </button>
-                                    <button id="popularNews" class="btn btn-primary mx-1" onclick="showPopular();">
+                                    <button id="popularNews" class="btn btn-primary mx-1" onclick="fill(1);">
                                         POPULAR NEWS
                                     </button>
-                                    <button id="popularVideos" class="btn btn-primary">
+                                    <button id="popularVideos" class="btn btn-primary" onclick="fill(2);">
                                         POPULAR VIDEOS
                                     </button>
                                 </div>
@@ -325,14 +63,132 @@
     </main>
 
     <script>
-        var newsCarousel = document.getElementById('newsCarousel');
-        var carouselList = document.getElementById('carouselList');
+        var tabIndex = {
+            actualTabIndex: 0,
+            indexChanged: function(value) {},
+            set tabIndex(value) {
+                if(this.actualTabIndex != value) {
+                    this.actualTabIndex = value;
+                    this.indexChanged();
+                }
+            },
+            get tabIndex() {
+                return this.actualTabIndex;
+            },
+            registerListener: function(listener) {
+                this.indexChanged = listener;
+            }
+        }
+
+        var trendings = {
+            url: 'getTrendings.php',
+            news: '',
+            list: ''
+        }
+        var popularNews = {
+            url: 'getPopularNews.php',
+            news: '',
+            list: ''
+        }
+        var popularVideos = {
+            url: 'getPopularVideos.php',
+            news: '',
+            list: ''
+        }
+
+        var tabs = [trendings, popularNews, popularVideos]
+
+        for (const tab of tabs)
+            getTab(tab);
+
+        function getTab(tab) {
+            $.ajax({
+                url: tab.url,
+                type: "POST",
+                dataType: "html"
+            }).done(function (response) {
+                var data = JSON.parse(response);
+                var carouselInner = '';
+                var carouselList = '';
+                data.forEach((item, index) => {
+                    if (index == 0) {
+                        carouselInner +=
+                            '<div class="carousel-item active">' +
+                            '<img class="carousel-image" src="' + item.image + '">' +
+                            '<div class ="carousel-caption">' +
+                            '<h4><a href="#">' + item.title + '</a></h4>' +
+                            '<p>' + item.desc + '</p>' +
+                            '</div>' +
+                            '</div>';
+
+                        carouselList +=
+                            '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item active">' +
+                            '<span>' + item.title + '</span>' +
+                            '</li>';
+                    } else {
+                        carouselInner +=
+                            '<div class="carousel-item">' +
+                            '<img class="carousel-image" src="' + item.image + '">' +
+                            '<div class ="carousel-caption">' +
+                            '<h4><a href="#">' + item.title + '</a></h4>' +
+                            '<p>' + item.desc + '</p>' +
+                            '</div>' +
+                            '</div>';
+
+                        carouselList +=
+                            '<li data-bs-target="#newsCarousel" data-bs-slide-to="' + index + '" class="px-1 list-group-item">' +
+                            '<span>' + item.title + '</span>' +
+                            '</li>';
+                    }
+                });
+
+                tab.news = carouselInner;
+                tab.list = carouselList;
+            }).fail(function (jqXHR, textStatus) {
+                console.log("Request failed: " + textStatus);
+            }).always(function () { });
+        }
+
+        function fill(index) {
+            tabIndex.tabIndex = index;
+            const tab = tabs[index]
+
+            var currentTabButton = $('.carousel_tabs button.active');
+            currentTabButton.removeClass('active');
+            var tabButtons = $('.carousel_tabs').children();
+            $(tabButtons[index]).addClass('active');
+
+            cleanCarousel();
+            document.getElementById("carousel-inner").innerHTML = tab.news;
+            document.getElementById("carousel-list").innerHTML = tab.list;
+        }
 
         $(function () {
-            getNews();
+            fill(0);
+            activeCarousel();
         });
 
-        function getNews() {
+        function cleanCarousel() {
+            var element = document.getElementById("carousel-inner");
+            while (element.firstChild)
+                element.removeChild(element.lastChild);
+
+            element = document.getElementById("carousel-list");
+            while (element.firstChild)
+                element.removeChild(element.lastChild);
+        }
+    
+        tabIndex.registerListener(function(value) {
+            if (tabIndex.tabIndex >= tabs.length)
+                tabIndex.tabIndex = 0
+            fill(tabIndex.tabIndex);
+        });
+    </script>
+
+    <script>
+        var newsCarousel = document.getElementById('newsCarousel');
+
+        function activeCarousel() {
             var click = false;
             var co = $('#newsCarousel').children();
             var count = co[0].childElementCount - 1;
@@ -371,7 +227,8 @@
                             current.removeClass('active');
 
                             if (count == id) {
-                                showPopular();
+                                tabIndex.tabIndex++;
+
                                 // $('#carouselList .list-group li').first().addClass('active');
                                 // $('#carouselList .list-group-item').first().addClass('active');
                             } else {
@@ -384,7 +241,6 @@
                 }
             );
         }
-
     </script>
 
 </body>

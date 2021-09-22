@@ -92,22 +92,21 @@ body { padding-top: 50px; }
 .btn-primary,
 .btn-primary:active,
 .btn-primary:active:hover {
-    color: #fff;
-    background-color: var(--primary);
-    border-color: var(--primary);
+    color: #000;
+    background-color: lightgray;
+    border-color: lightgray;
 }
 
 .btn-primary:hover {
-    color: #fff;
-    background-color: var(--secondary);
-    border-color: var(--secondary);
+    color: #000;
+    background-color: lightgray;
+    border-color: lightgray;
+    font-weight: 500;
 }
 
 .btn-check:focus+.btn-primary,
 .btn-primary:focus {
-    color: #fff;
-    background-color: var(--secondary);
-    border-color: var(--secondary);
+    color: #000;
     box-shadow: none;
 }
 
@@ -116,7 +115,7 @@ body { padding-top: 50px; }
 .btn-primary.active:focus,
 .btn-primary:active:focus,
 .show>.btn-primary.dropdown-toggle:focus {
-    color: #fff;
+    color: #000;
     background-color: var(--primary);
     border-color: var(--primary);
     box-shadow: none;
