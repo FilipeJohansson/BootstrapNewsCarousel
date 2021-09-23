@@ -12,3 +12,12 @@ Carousel will pass trought all tabs, each tab with yours news.
 ![image](https://user-images.githubusercontent.com/56850125/134436940-624dc869-353c-4146-9f00-459803c0e873.png)
 
 ![image](https://user-images.githubusercontent.com/56850125/134436977-3cc1cc15-69f9-41b9-bc84-c3c59128fabb.png)
+
+
+## Whats Next?
+
+Well, I know that still have some errors on CSS, like fitting the image depending on window size and the size of tabs.
+
+I'll work, in my free time, to try improve the code, both font-end and back-end.
+
+But if you have some features or improves to implement, felt free to create a pull request or fork.
